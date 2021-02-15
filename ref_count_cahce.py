@@ -19,13 +19,20 @@ class RefCountCache(UserDict):
             Clearing the internal dictionary of objects with missing external references.
             Doesn't handle circular references!
         """
-        old_keys = [item_key for item_key in self if sys.getrefcount(self[item_key]) < 3]
+        old_keys = [key for key in self if sys.getrefcount(super(RefCountCache, self).__getitem__(key)) < 3]
         for old_key in old_keys:
             del self[old_key]
 
-    def get(self, key, *args, **kwargs):
+    def __getitem__(self, key):
+        """
+            Get item
+            Params:
+                key - item key
+            Return:
+                item or KeyError
+        """
         self.__clear()
-        return super().get(key, *args, **kwargs)
+        return super().__getitem__(key)
 
 
 class SingletonRefCountCaheMeta(type):
