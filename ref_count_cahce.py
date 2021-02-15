@@ -23,15 +23,9 @@ class RefCountCache(UserDict):
         for old_key in old_keys:
             del self[old_key]
 
-    def __setitem__(self, key, value):
-        """
-            Set element
-            Params:
-                key - search key
-                value - value to set
-        """
+    def get(self, key, *args, **kwargs):
         self.__clear()
-        super().__setitem__(key, value)
+        return super().get(key, *args, **kwargs)
 
 
 class SingletonRefCountCaheMeta(type):
