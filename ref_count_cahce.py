@@ -1,3 +1,10 @@
+"""
+    The module contains the implementation of objects representing
+    the functionality of caching with reference counting
+
+    Author: Myshko E.V.
+"""
+
 import sys
 from collections import UserDict
 from threading import Lock
